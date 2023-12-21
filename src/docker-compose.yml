@@ -2,29 +2,39 @@ version: "2"
 
 
 services:
-    db:
-        image: postgres:13
-        expose:
-            - ${DB_PORT}
+    mysql:
+        image: mysql:latest
         ports:
-            - ${DB_PORT}:${DB_PORT}
-        command: -p ${DB_PORT}
+            - 3306:3306
         environment:
-            - POSTGRES_DB=${DB_DB}
-            - POSTGRES_PASSWORD=${DB_PASSWORD}
-            - POSTGRES_USER=${DB_USER}
+            MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+            MYSQL_DATABASE: ${MYSQL_DATABASE}
+            MYSQL_USER: ${MYSQL_USER}
+            MYSQL_PASSWORD: ${MYSQL_PASSWORD}
         volumes:
-            - db_data:/var/lib/postgresql/data
-
-    backend:
-        build: ./backend/src/
-        depends_on:
-            - db
-        ports:
-            - ${BACKEND_PORT}:${BACKENDB_PORT}
+            - backend_mysql_data:/var/lib/mysql/
         env_file: .env
+
+    # mongo:
+    #     image: mongo
+    #     ports:
+    #         - 27017:27017
+    #     volumes:
+    #         - backend_mongo_data:/data/db
+    #     env_file: .env
+
+    # backend:
+    #     build: ./backend/src/
+    #     depends_on:
+    #         - db
+    #     ports:
+    #         - ${BACKEND_PORT}:${BACKENDB_PORT}
+    #     env_file: .env
 
 
 volumes:
-    db_data:
+    backend_mysql_data:
+        external: true
+    
+    backend_mongo_data:
         external: true
