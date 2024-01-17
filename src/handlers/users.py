@@ -1,5 +1,3 @@
-from fastapi import Depends
-
 from services import Service
 # from handlers.middlewares import APIMiddleware
 from schemas import User, UserUpdate
@@ -13,5 +11,9 @@ class UsersHandler:
 
     async def create(self, user: User) -> Response:
         self.service.users.create(user)
+        return Response(status_code=200)
+    
+    async def update(self, user_id: int, user: UserUpdate) -> Response:
+        self.service.users.update(user_id, user)
         return Response(status_code=200)
 

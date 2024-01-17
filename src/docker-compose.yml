@@ -15,13 +15,13 @@ services:
             - backend_mysql_data:/var/lib/mysql/
         env_file: .env
 
-    # mongo:
-    #     image: mongo
-    #     ports:
-    #         - 27017:27017
-    #     volumes:
-    #         - backend_mongo_data:/data/db
-    #     env_file: .env
+    mongo:
+        image: mongo
+        ports:
+            - 27017:27017
+        volumes:
+            - backend_mongo_data:/data/db
+        env_file: .env
 
     # backend:
     #     build: ./backend/src/

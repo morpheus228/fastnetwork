@@ -3,9 +3,9 @@ from enum import Enum
 
 
 class UserCondition(str, Enum):
-    new: str = "new"
-    introduction_completed: str = "introductionCompleted"
-    profile_created: str = "profileCreated"
+    ACTIVE: str = "new"
+    INTODUCTION_COMPLETED: str = "introductionCompleted"
+    PROFILE_CREATED: str = "profileCreated"
 
 
 class User(BaseModel):
@@ -16,7 +16,7 @@ class User(BaseModel):
 
 
 class UserUpdate(BaseModel):
-    first_name: str = None
-    last_name: str = None
-    username: str = None
-    condition: UserCondition = None
+    first_name: str|None
+    last_name: str|None
+    username: str|None
+    condition: None|UserCondition

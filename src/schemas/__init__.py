@@ -1,4 +1,4 @@
-from .user import User, UserUpdate
-from .user_profile import UserProfile
-from .user_request import UserRequest
-from .recommendation_answer import RecommendationAnswer
+from .user import *
+from .user_profile import *
+from .user_request import *
+from .recommendation import *

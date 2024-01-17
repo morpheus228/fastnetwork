@@ -18,7 +18,7 @@ class Handler:
         self.user_profiles = UserProfilesHandler(service)
         self.user_requests = UserRequestsHandler(service)
         self.recommendations = RecommendationsHandler(service)
-
+ 
     def register(self, app: FastAPI) -> list[APIRouter]:
         self.users_router = APIRouter(prefix="/users", tags=["Users"])
         self.user_profiles_router = APIRouter(prefix="/user_profiles", tags=["UserProfiles"])
@@ -26,12 +26,13 @@ class Handler:
         self.recommendations_router = APIRouter(prefix="/recommendations", tags=["Recommendations"])
 
         self.users_router.add_api_route("/", endpoint=self.users.create, methods=["POST"])
-        # self.users_router.add_api_route("/{user_id}", endpoint=self.users.update, methods=["PUT"])
+        self.users_router.add_api_route("/{user_id}", endpoint=self.users.update, methods=["PUT"])
 
         self.user_profiles_router.add_api_route("/{user_id}", endpoint=self.user_profiles.create, methods=["POST"])
+        self.user_profiles_router.add_api_route("/{user_id}", endpoint=self.user_profiles.get, methods=["GET"])
 
         self.user_requests_router.add_api_route("/{user_id}", endpoint=self.user_requests.create, methods=["POST"])
-        self.user_requests_router.add_api_route("/", endpoint=self.user_requests.get, methods=["GET"])
+        self.user_requests_router.add_api_route("/list/{user_id}", endpoint=self.user_requests.get, methods=["GET"])
         self.user_requests_router.add_api_route("/{id}", endpoint=self.user_requests.get_by_id, methods=["GET"])
 
         self.recommendations_router.add_api_route("/{request_id}", endpoint=self.recommendations.get, methods=["GET"])

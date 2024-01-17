@@ -1,9 +1,10 @@
-import enum
 from sqlalchemy import create_engine, BigInteger, String, Column, DateTime, ForeignKey, Boolean, Integer, Text, Float, Enum, JSON
 from sqlalchemy.orm import declarative_base
 from datetime import datetime
 
 from config import Config
+from schemas.user import UserCondition
+from schemas.user_request import UserRequestStatus
 
 
 def get_mysql():
@@ -13,20 +14,6 @@ def get_mysql():
 
 
 Base = declarative_base()
-
-
-class UserCondition(enum.Enum):
-    NEW = 0
-    INTRODUCTION_COMPLETED= 1
-    PROFILE_CREATED = 2
-
-
-class UserRequestStatus(enum.Enum):
-    ACTIVE = 0
-    AUTO_COMPLETED= 1
-    USER_COMPLETED= 2
-    DELETED = 3
-
 
 
 class User(Base):
@@ -61,8 +48,8 @@ class UserRequest(Base):
     text = Column(String(1024))
     created_at = Column(DateTime(), default=datetime.utcnow)
     updated_at = Column(DateTime(), default=datetime.utcnow, onupdate=datetime.utcnow)
-    status = Column(Enum(UserRequestStatus))
-    matches_count = Column(Integer)
+    status = Column(Enum(UserRequestStatus), default=UserRequestStatus.ACTIVE)
+    matches_count = Column(Integer, default=0)
 
 
 class Recommendation(Base):

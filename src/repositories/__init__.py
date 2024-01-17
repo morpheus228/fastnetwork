@@ -7,7 +7,8 @@ from .mysql import get_mysql
 from .openai import OpenAI
 
 from .users_mysql import UsersMYSQL
-from .profiles_mysql import UserProfilesMYSQL
+from .user_profiles_mysql import UserProfilesMYSQL
+from .user_requests_mysql import UserRequestsMYSQL
 from .recommendations_mysql import RecommendationsMYSQL
 
 from .embeddings_mongo import EmbeddingsMongo
@@ -23,6 +24,7 @@ class Repository:
 
 		self.users: UsersMYSQL = UsersMYSQL(self.mysql)
 		self.user_profiles: UserProfilesMYSQL = UserProfilesMYSQL(self.mysql)
+		self.user_requests: UserRequestsMYSQL = UserRequestsMYSQL(self.mysql)
 		self.recommendations: RecommendationsMYSQL = RecommendationsMYSQL(self.mysql)
 
 		self.embeddings: EmbeddingsMongo = EmbeddingsMongo(self.mongo)
