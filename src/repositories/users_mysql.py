@@ -2,14 +2,14 @@ from sqlalchemy.orm import Session
 from sqlalchemy import Engine
 
 from .mysql import User as MysqlUser
-from schemas import User 
+from schemas import CreateUser 
 
 
 class UsersMYSQL:
     def __init__(self, mysql: Engine):
         self.mysql: Engine = mysql
         
-    def create(self, user: User) -> None:
+    def create(self, user: CreateUser) -> None:
         with Session(self.mysql) as session:
             user = MysqlUser(id = user.id,
                              first_name = user.first_name,
@@ -22,7 +22,7 @@ class UsersMYSQL:
         with Session(self.mysql) as session:
             return session.query(MysqlUser).get(user_id)
         
-    def get_all(self) -> list[User|None]:
+    def get_all(self) -> list[CreateUser|None]:
         with Session(self.mysql) as session:
             return session.query(MysqlUser).all()
         

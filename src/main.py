@@ -24,14 +24,15 @@ app = FastAPI(title="Fastnetwork Main Backend")
 handler.register(app)
 
 
-if __name__ == "__main__":
-    uvicorn.run(app="main:app", reload=True, port=80)
-
-
 def make_migrations():
     from repositories.mysql import Base
     Base.metadata.drop_all(repository.mysql)
     Base.metadata.create_all(repository.mysql)
+
+
+if __name__ == "__main__":
+    make_migrations()
+    uvicorn.run(app="main:app", reload=True, port=80)
 
 
 async def main():

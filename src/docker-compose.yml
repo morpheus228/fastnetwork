@@ -23,13 +23,14 @@ services:
             - backend_mongo_data:/data/db
         env_file: .env
 
-    # backend:
-    #     build: ./backend/src/
-    #     depends_on:
-    #         - db
-    #     ports:
-    #         - ${BACKEND_PORT}:${BACKENDB_PORT}
-    #     env_file: .env
+    backend:
+        build: .
+        depends_on:
+            - mysql
+            - mongo
+        ports:
+            - ${BACKEND_PORT}:${BACKEND_PORT}
+        env_file: .env
 
 
 volumes:

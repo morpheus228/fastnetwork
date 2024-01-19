@@ -1,9 +1,9 @@
 from httpx import AsyncClient
 from repositories import Repository
-from schemas.user import User
+from schemas.user import CreateUser
 from schemas.user_request import UserRequest, UserRequestStatus
 
-user = User(
+user = CreateUser(
         id=54,
         first_name="Anton",
         last_name="Sexsov",

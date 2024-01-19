@@ -24,7 +24,7 @@ class User(Base):
     last_name = Column(String(100))
     username = Column(String(100))
     is_visible = Column(Boolean, default=True)
-    condition = Column(Enum(UserCondition))
+    condition = Column(Enum(UserCondition), default=UserCondition.NEW)
     created_at = Column(DateTime(), default=datetime.utcnow)
     updated_at = Column(DateTime(), default=datetime.utcnow, onupdate=datetime.utcnow)
 

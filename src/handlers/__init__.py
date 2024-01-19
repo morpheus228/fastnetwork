@@ -25,6 +25,7 @@ class Handler:
         self.user_requests_router = APIRouter(prefix="/user_requests", tags=["UserRequests"])
         self.recommendations_router = APIRouter(prefix="/recommendations", tags=["Recommendations"])
 
+        self.users_router.add_api_route("/{user_id}", endpoint=self.users.get, methods=["GET"])
         self.users_router.add_api_route("/", endpoint=self.users.create, methods=["POST"])
         self.users_router.add_api_route("/{user_id}", endpoint=self.users.update, methods=["PUT"])
 
